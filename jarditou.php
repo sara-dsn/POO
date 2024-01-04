@@ -8,6 +8,7 @@ class employe
     private $_salaire;
     private $_lieu;
   
+  
 
     public function setNom($_nom){
         $this->_nom=$_nom;
@@ -27,22 +28,28 @@ class employe
     public function setLieu($_lieu){
         $this->_lieu=$_lieu;
     }
-        public function anciennete(){
-            $datembauche=new DateTime($this->_embauche);
+        public function anciennete($_embauche){
+            
             $aujourdhui=new DateTime('now');
-            $duree=$aujourdhui->diff($datembauche);
-            return $duree->d;
+            $duree=$aujourdhui->diff($_embauche);
+            return $duree->y;
 }
-   
+   public function profil(){
+    $_datembauche=new DateTime($this->_embauche);
+    $anciennete=$this->anciennete($_datembauche);
+        echo "Nom : ".$this->_nom."<br>Prénom : ".$this->_prenom."<br>Date d'embauche : ".$_datembauche->format('Y')." depuis ".$anciennete."<br>Poste : ".$this->_poste."<br>Salaire : ".$this->_salaire."<br>Lieu : ".$this->_lieu;
+    }
   
 }
-$employe= new employe();
-$employe->setNom("dsn");
-$employe-> setPrenom("sara");
-$employe->setEmbauche("2023");
 
- public function profil(){
-        echo "Nom : ".$this->_nom."<br>Prénom : ".$this->_prenom."<br>Date d'embauche : ".$this->_embauche." depuis ".$employe->anciennete()."<br>Poste : "."<br>Salaire : ".$this->_salaire."<br>Lieu : ".$this->_lieu;
-    }
+
+ 
+    $employe= new employe();
+$employe->setNom("dsn");
+$employe-> setPrenom("Sara");
+$employe->setEmbauche('2000-01-01');
+$employe->setPoste("Présidente");
+$employe->setSalaire('50000');
+$employe->setLieu("Marseille");
 echo $employe->profil();
 ?>
