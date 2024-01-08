@@ -28,6 +28,7 @@ class employe
     private $_salaire;
     private $_lieu;
     private $_restauration;
+    // private $_age;
  
   
     public function __construct($_nom, $_prenom,$_embauche,$_poste,$_salaire,$_lieu, $_restauration){
@@ -74,26 +75,36 @@ class employe
             "30€"=>0,
             "50€"=>0
         );
-        if($_age>=0 && $_age<=10){
+        foreach($_age as $_ages){ 
+        if($_ages>=0 && $_ages<=10){
             $cheque["20€"]++;
         }
-        else if($_age>=11 && $_age<=15){
+        else if($_ages>=11 && $_ages<=15){
             $cheque["30€"]++;
         }
-        else if($_age>=16 && $_age<=18) {
+        else if($_ages>=16 && $_ages<=18) {
             $cheque["50€"]++;
+        }};
+        $nbrenfant=count($_age);
+        echo "<br> Droit aux chèques de Noël : ";
+        echo $nbrenfant ? 'Oui' : 'Non';
+        echo "<br>";
+        foreach($cheque as $montant => $nbr){
+            if ($nbr>0){
+                echo "À le droit à $nbr chèques de $montant pour Noël.<br>";
+            }
         }
 // if($cheque["30€"]){
 //     echo "à le droit à ".$cheque["30€"];
 // }
-        $chequeNoel=array_sum($_age)>0;
+        // $chequeNoel=array_sum($_age)>0;
 
-        if($chequeNoel){
-            echo "À le droit à ".$cheque["20€"]." chèques de 20€ de Noël.";
-            echo "À le droit à ".$cheque["30€"]." chèques de 30€ de Noël.";
-            echo "À le droit à ".$cheque["50€"]." chèques de 50€ de Noël.";
+        // if($chequeNoel){
+        //     echo "À le droit à ".$cheque["20€"]." chèques de 20€ de Noël.";
+        //     echo "À le droit à ".$cheque["30€"]." chèques de 30€ de Noël.";
+        //     echo "À le droit à ".$cheque["50€"]." chèques de 50€ de Noël.";
 
-        };
+        // };
     }
 }
 
@@ -107,15 +118,18 @@ $magasin4 = new magasin("magasin 4","2 rue des serpentines","44200","Nantes","su
 
 
 $employe = new employe("dsn","Sara",'2000-01-01',"Présidente",50000,$magasin1->_lieu,$magasin1->_restauration);
-$employe->enfant(2,8,15);
+$employe->enfant(array(2,8,15));
 echo $employe->profil();
 
 $moe= new employe("Sizlak","Moe",'2024-01-02',"barman",2200,$magasin2->_lieu,$magasin2->_restauration);
+$moe->enfant(array());
 echo $moe->profil();
 
 $stan= new employe("Smith","Stan",'1982-12-12',"vigile",2500,$magasin3->_lieu,$magasin3->_restauration);
+$stan->enfant(array(15,17));
 echo $stan->profil();
 
 $roger= new employe("Smith","Roger",'1802-05-13',"Vendeur",1500,$magasin4->_lieu,$magasin4->_restauration);
+$roger->enfant(array(2));
 echo $roger->profil();
 ?>
