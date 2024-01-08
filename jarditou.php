@@ -1,4 +1,19 @@
 <?php 
+class magasin
+{
+    private $_nom;
+    private $_adresse;
+    private $_cp;
+    private $_lieu;
+
+    function __construct($_nom, $_adresse, $_cp, $_lieu){
+        $this->_nom=$_nom ;
+        $this->_adresse=$_adresse;
+        $this->_cp=$_cp;
+        $this->_lieu=$_lieu;
+
+    }
+}
 class employe
 {
     private $_nom ;
@@ -47,7 +62,7 @@ public function prime($_anciennete){
     $anciennete=$this->anciennete($_datembauche);
     $prime=$this->_salaire/100*(105+$this->prime($anciennete));
       
-     echo "<br>Nom : ".$this->_nom."<br>Prénom : ".$this->_prenom."<br>Date d'embauche : ".$_datembauche->format('d/m/Y')." depuis ".$anciennete."<br>Poste : ".$this->_poste."<br>Salaire : ".$this->_salaire."<br>Lieu : ".$this->_lieu."<br><br>";
+     echo "<br>Nom : ".$this->_nom."<br>Prénom : ".$this->_prenom."<br>Date d'embauche : ".$_datembauche->format('d/m/Y')." depuis ".$anciennete."<br>Poste : ".$this->_poste."<br>Salaire : ".$this->_salaire."<br>Lieu : ".$this->_lieu->getLieu()."<br><br>";
     
 if($aujourdhui->format("m-d")==$payday->format('m-d')){
         echo "<br> L'ordre de transfert de ".$prime." a été envoyé à la banque de ".$this->_prenom."<br><br>";
@@ -55,16 +70,20 @@ if($aujourdhui->format("m-d")==$payday->format('m-d')){
 
 }}
 
+$magasin = new magasin("magasin 1","5 rue paradis","13008","marseille");
 
 
  
-    $employe= new employe();
+$employe = new employe();
 $employe->setNom("dsn");
 $employe-> setPrenom("Sara");
 $employe->setEmbauche('2000-01-01');
 $employe->setPoste("Présidente");
-$employe->setSalaire('50000');
-$employe->setLieu("Marseille");
+$employe->setSalaire(50000);
+$employe->setLieu($magasin);
+
+echo $employe->profil();
+
 $moe= new employe();
 $moe->setNom("sizlak");
 $moe-> setPrenom("moe");
@@ -72,6 +91,9 @@ $moe->setEmbauche('1971-10-03');
 $moe->setPoste("barman");
 $moe->setSalaire('2200');
 $moe->setLieu("springfiled");
+
+echo $moe->profil();
+
 $stan= new employe();
 $stan->setNom("smith");
 $stan-> setPrenom("stan");
@@ -79,6 +101,9 @@ $stan->setEmbauche('1972-12-12');
 $stan->setPoste("vigile");
 $stan->setSalaire('2500');
 $stan->setLieu("paris");
+
+echo $stan->profil();
+
 $roger= new employe();
 $roger->setNom("smith");
 $roger-> setPrenom("roger");
@@ -86,8 +111,6 @@ $roger->setEmbauche('1923-08-25');
 $roger->setPoste("vendeur");
 $roger->setSalaire('1800');
 $roger->setLieu("nantes");
-echo $employe->profil();
-echo $stan->profil();
-echo $moe->profil();
+
 echo $roger->profil();
 ?>
